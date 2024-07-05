@@ -105,11 +105,6 @@ const PaginationButton = styled.button`
   }
 `;
 
-const Divider = styled.hr`
-  border-top: 8px solid black;
-  border-radius: 5px;
-`;
-
 function LandingPage() {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
@@ -222,6 +217,11 @@ function LandingPage() {
     const blob = XLSX.write(wb, { bookType: "xlsx", type: "base64" });
 
     saveAs(blob, "contacts.xlsx");
+    toast.success("Download Started", {
+      position: "top-left",
+      theme: "dark",
+      autoClose: 5000,
+    });
   };
 
   const totalContacts = contacts.length;
@@ -250,7 +250,11 @@ function LandingPage() {
                 <br /> {profile.name}
               </h2>
               <b>
+                <br />
                 ---------------------------------------------------------------
+                <br />
+                <br />
+                <h3>Contacts</h3>
               </b>
               <div>
                 <p>
@@ -267,10 +271,10 @@ function LandingPage() {
                   {showAllContacts ? "Show Paginated" : "Show All"}
                 </button>
               </div>
+
               <ContactsContainer>
                 {showAllContacts ? (
                   <>
-                    {/* <h3>Your Contacts:</h3> */}
                     <ul>
                       {contacts.map((contact, index) => (
                         <ContactItem key={index}>
